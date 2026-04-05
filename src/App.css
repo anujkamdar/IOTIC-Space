@@ -650,6 +650,10 @@
 		padding-right: 1rem;
 	}
 
+	.hero-visual {
+		display: none;
+	}
+
 	.capabilities,
 	.showcase,
 	.mission-panel,
