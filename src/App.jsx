@@ -2,40 +2,41 @@ import { useEffect, useState } from 'react'
 import './App.css'
 
 const navItems = [
-  { label: 'Launches', href: '#home' },
-  { label: 'Lunar Systems', href: '#capabilities' },
-  { label: 'Vehicles', href: '#vehicles' },
-  { label: 'Mission Control', href: '#mission-control' },
+  { label: 'Home', href: '#home' },
+  { label: 'Our Approach', href: '#capabilities' },
+  { label: 'Flux Alpha', href: '#vehicles' },
+  { label: 'Mission', href: '#mission-control' },
   { label: 'Company', href: '#company' },
+  { label: 'Contact', href: '#contact' },
 ]
 
 const highlights = [
   {
-    value: '24/7',
-    label: 'Live mission telemetry and deep-space monitoring',
+    value: 'Phase 1',
+    label: 'Design, manufacturing, and static fire testing',
   },
   {
-    value: '03',
-    label: 'Flight-ready systems staged for lunar deployment',
+    value: 'Tech',
+    label: 'Solid rocket motor prototype validation',
   },
   {
-    value: '99.8%',
-    label: 'Operational visibility across every critical stack',
+    value: 'Goal',
+    label: 'Build real engineering capability first. Scale later.',
   },
 ]
 
 const capabilities = [
   {
-    title: 'Launch architecture',
-    text: 'Reusable launch vehicles and modular payload stacks designed for rapid orbital deployment.',
+    title: 'Propulsion Validation',
+    text: 'A foundational solid rocket motor prototype focusing on combustion understanding, nozzle design, and chamber pressure behavior.',
   },
   {
-    title: 'Moon live wallpaper',
-    text: 'A cinematic, looping moon feed keeps the hero section alive and matches the screenshot atmosphere.',
+    title: 'Deep-Tech Infrastructure',
+    text: 'Building scalable space transportation systems to support humanity’s expansion into cislunar and lunar space.',
   },
   {
-    title: 'Ground systems',
-    text: 'Mission control dashboards, telemetry layers, and resilient communications built for long-range operations.',
+    title: 'Iterative Engineering',
+    text: 'Embracing a disciplined cycle of design, validation, and improvement—the true engine of aerospace progress.',
   },
 ]
 
@@ -63,11 +64,41 @@ function App() {
     return () => window.clearInterval(interval)
   }, [])
 
+  useEffect(() => {
+    const revealElements = document.querySelectorAll('.reveal')
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
+    if (prefersReducedMotion) {
+      revealElements.forEach((element) => element.classList.add('is-visible'))
+      return
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible')
+            observer.unobserve(entry.target)
+          }
+        })
+      },
+      {
+        threshold: 0.16,
+        rootMargin: '0px 0px -8% 0px',
+      },
+    )
+
+    revealElements.forEach((element) => observer.observe(element))
+
+    return () => observer.disconnect()
+  }, [])
+
   return (
     <div className="app-shell">
       <header className="topbar">
         <a className="brand" href="#home" aria-label="IOTIC Space home">
-          IOTIC SPACE
+          <img src="/LogoWithoutText.png" alt="IOTIC Space logo" />
+          <span className="brand-name">IOTIC Space</span>
         </a>
 
         <nav className="nav" aria-label="Primary">
@@ -78,43 +109,21 @@ function App() {
           ))}
         </nav>
 
-        <div className="launch-chip" aria-label="Upcoming launch countdown">
-          <span>Upcoming launch</span>
-          <strong>{countdown}</strong>
-        </div>
+
       </header>
 
       <main id="home">
         <section className="hero">
-          <div className="hero-copy">
-            <p className="eyebrow">IOTIC SPACE PROGRAM</p>
-            <h1>Making life multiplanetary starts with better infrastructure.</h1>
-            <p className="hero-text">
-              IOTIC Space builds launch systems, lunar hardware, and connected operations tools for the next
-              generation of orbital work. The interface is intentionally SpaceX-inspired: quiet, technical, and
-              cinematic.
-            </p>
+          <div className="hero-copy reveal">
+            <h1>Engineering the first steps toward humanity’s next frontier.</h1>
 
-            <div className="hero-actions">
-              <a className="primary-action" href="#capabilities">
-                Explore systems
-              </a>
-              <a className="secondary-action" href="#moon-live">
-                Watch moon live
-              </a>
-            </div>
 
-            <div className="highlight-strip" role="list" aria-label="Key platform metrics">
-              {highlights.map((item) => (
-                <article key={item.label} className="highlight-card" role="listitem">
-                  <strong>{item.value}</strong>
-                  <span>{item.label}</span>
-                </article>
-              ))}
-            </div>
+
+
+
           </div>
 
-          <div className="hero-visual" id="moon-live">
+          <div className="hero-visual reveal" id="moon-live" style={{ '--reveal-delay': '120ms' }}>
             <div className="moon-frame">
               <video
                 className="moon-video"
@@ -131,15 +140,19 @@ function App() {
           </div>
         </section>
 
-        <section className="capabilities" id="capabilities">
-          <div className="section-heading">
-            <p>Capabilities</p>
-            <h2>Built like a launch company, presented like a control room.</h2>
+        <section className="capabilities reveal" id="capabilities">
+          <div className="section-heading reveal" style={{ '--reveal-delay': '80ms' }}>
+            <p>Our Approach</p>
+            <h2>Real engineering capability first. Scale later.</h2>
           </div>
 
           <div className="capability-grid">
             {capabilities.map((item, index) => (
-              <article key={item.title} className="capability-card">
+              <article
+                key={item.title}
+                className="capability-card reveal"
+                style={{ '--reveal-delay': `${120 + index * 90}ms` }}
+              >
                 <span className="card-index">0{index + 1}</span>
                 <h3>{item.title}</h3>
                 <p>{item.text}</p>
@@ -148,7 +161,7 @@ function App() {
           </div>
         </section>
 
-        <section className="showcase" id="vehicles">
+        <section className="showcase reveal" id="vehicles">
           <div className="showcase-visual">
             <img src="/engine.png" alt="IOTIC Space engine assembly" loading="lazy" />
           </div>
@@ -174,27 +187,66 @@ function App() {
           </div>
         </section>
 
-        <section className="mission-panel" id="mission-control">
+        <section className="mission-panel reveal" id="mission-control">
           <div>
-            <p className="eyebrow">Mission control</p>
-            <h2>Designed to feel like a live launch page, not a brochure.</h2>
+            <p className="eyebrow">The Mission</p>
+            <h2>One validated propulsion milestone at a time.</h2>
           </div>
           <p>
-            If you want, this can be extended into multi-page sections for vehicles, company, updates, and launch
-            manifests while keeping the same visual language.
+            IOTIC Space is not attempting to skip steps. We are beginning with foundational propulsion work
+            that every serious space company must master—the ability to design, build, test, fail safely,
+            learn, and iterate.
           </p>
         </section>
 
-        <footer className="site-footer" id="company">
+        <footer className="site-footer reveal" id="company">
           <div>
             <p className="eyebrow">Company</p>
             <h2>IOTIC Space.</h2>
           </div>
           <p>
-            A minimal launch platform concept with a SpaceX-like presentation, a live moon wallpaper hero, and
-            chrome-toned technical storytelling.
+            We are building a technically credible foundation in propulsion and launch system development. 
+            Capability, once earned, can change everything.
           </p>
         </footer>
+
+        <section className="contact-section reveal" id="contact">
+          <div className="contact-copy reveal" style={{ '--reveal-delay': '70ms' }}>
+            <p className="eyebrow">Contact Us</p>
+            <h2>Connect with the IOTIC Space team.</h2>
+            <p>
+              For collaboration, internships, and media inquiries, reach out through the channels below.
+            </p>
+          </div>
+
+          <div className="contact-details" aria-label="Contact details">
+            <div className="reveal" style={{ '--reveal-delay': '120ms' }}>
+              <span>Email</span>
+              <a className="contact-link" href="mailto:hello@ioticspace.com">
+                hello@ioticspace.com
+              </a>
+            </div>
+
+            <div className="reveal" style={{ '--reveal-delay': '180ms' }}>
+              <span>Phone</span>
+              <a className="contact-link" href="tel:+919876543210">
+                +91 85059 05796
+              </a>
+            </div>
+
+            <div className="reveal" style={{ '--reveal-delay': '240ms' }}>
+              <span>Location</span>
+              <p>Dhanbad, Jharkhand</p>
+            </div>
+
+            <div className="reveal" style={{ '--reveal-delay': '300ms' }}>
+              <span>LinkedIn</span>
+              <a className="contact-link" href="https://www.linkedin.com" target="_blank" rel="noreferrer">
+                www.linkedin.com/company/iotic-space/
+              </a>
+            </div>
+          </div>
+        </section>
       </main>
     </div>
   )
