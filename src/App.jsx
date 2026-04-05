@@ -154,25 +154,21 @@ function App() {
           </div>
 
           <div className="showcase-copy">
-            <p className="eyebrow">Vehicles</p>
-            <h2>Lunar-class propulsion and modular payload hardware.</h2>
-            <p>
-              The engine image from the context folder becomes the technical centerpiece of the lower section,
-              anchoring the page with a precise product feel rather than a generic marketing layout.
-            </p>
+            <h2>Flux Alpha</h2>
+            <p>Engine properties</p>
 
             <div className="timeline">
               <div>
-                <strong>Stage 01</strong>
-                <span>Vehicle concept and stack integration</span>
+                <strong>ISP</strong>
+                <span>260-290 s - efficiency range for sustained burn performance.</span>
               </div>
               <div>
-                <strong>Stage 02</strong>
-                <span>Orbital checkout and thermal validation</span>
+                <strong>Thrust</strong>
+                <span>4 kN - delivers strong acceleration for mission maneuvers.</span>
               </div>
               <div>
-                <strong>Stage 03</strong>
-                <span>Lunar payload delivery and live monitoring</span>
+                <strong>Propellant</strong>
+                <span>LOX + LCH4 - a clean, high-performance cryogenic propellant pair.</span>
               </div>
             </div>
           </div>
