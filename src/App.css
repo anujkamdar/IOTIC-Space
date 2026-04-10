@@ -43,7 +43,6 @@
 	background: none;
 }
 
-.topbar,
 .hero,
 .capabilities,
 .showcase,
@@ -54,6 +53,9 @@
 }
 
 .topbar {
+	position: relative;
+	z-index: 6;
+	isolation: isolate;
 	display: grid;
 	grid-template-columns: auto 1fr auto;
 	align-items: center;
@@ -113,6 +115,40 @@
 
 .nav a:hover {
 	color: #ffffff;
+}
+
+.nav-recruitment-cta {
+	justify-self: end;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-width: 10.5rem;
+	padding: 0.64rem 1.05rem;
+	border-radius: 0.68rem;
+	border: 1px solid #ffffff;
+	background: linear-gradient(180deg, #ffffff 0%, #f1f3f7 100%);
+	box-shadow:
+		0 0 0 1px rgba(0, 0, 0, 0.24),
+		0 14px 34px rgba(0, 0, 0, 0.38),
+		inset 0 1px 0 rgba(255, 255, 255, 0.7);
+	color: #000000;
+	text-decoration: none;
+	font-family: 'IBM Plex Mono', monospace;
+	font-size: 0.8rem;
+	font-weight: 700;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+	transition: transform 180ms ease, box-shadow 180ms ease, filter 180ms ease, background 180ms ease;
+}
+
+.nav-recruitment-cta:hover {
+	transform: translateY(-2px);
+	filter: brightness(0.98);
+	background: linear-gradient(180deg, #ffffff 0%, #e8edf7 100%);
+	box-shadow:
+		0 0 0 1px rgba(0, 0, 0, 0.24),
+		0 18px 40px rgba(0, 0, 0, 0.42),
+		inset 0 1px 0 rgba(255, 255, 255, 0.75);
 }
 
 .launch-chip {
@@ -280,9 +316,14 @@
 	padding-top: 0;
 }
 
-.moon-frame {
+.moon-panel {
 	position: relative;
 	width: min(100%, 36rem);
+}
+
+.moon-frame {
+	position: relative;
+	width: 100%;
 	aspect-ratio: 0.86;
 	border: 0;
 	border-radius: 0;
@@ -608,6 +649,11 @@
 		justify-content: flex-start;
 	}
 
+	.nav-recruitment-cta {
+		justify-self: flex-start;
+		min-width: 10rem;
+	}
+
 	.launch-chip {
 		width: fit-content;
 	}
@@ -669,6 +715,14 @@
 
 	.nav {
 		gap: 0.9rem;
+	}
+
+	.nav-recruitment-cta {
+		width: 100%;
+		max-width: 14.5rem;
+		font-size: 0.8rem;
+		padding-left: 0.75rem;
+		padding-right: 0.75rem;
 	}
 
 	.hero h1 {

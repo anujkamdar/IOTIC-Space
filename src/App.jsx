@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import { Link } from 'react-router-dom'
 import './App.css'
 
 const navItems = [
@@ -55,6 +56,7 @@ function getCountdown() {
 
 function App() {
   const [countdown, setCountdown] = useState(getCountdown())
+  const hasSetInitialVideoOffset = useRef(false)
 
   useEffect(() => {
     const interval = window.setInterval(() => {
@@ -93,6 +95,13 @@ function App() {
     return () => observer.disconnect()
   }, [])
 
+  const handleMoonVideoLoadedMetadata = (event) => {
+    if (hasSetInitialVideoOffset.current) return
+
+    event.currentTarget.currentTime = 2
+    hasSetInitialVideoOffset.current = true
+  }
+
   return (
     <div className="app-shell">
       <header className="topbar">
@@ -109,6 +118,10 @@ function App() {
           ))}
         </nav>
 
+        <Link className="nav-recruitment-cta" to="/recruitment">
+          Recruitment
+        </Link>
+
 
       </header>
 
@@ -124,18 +137,21 @@ function App() {
           </div>
 
           <div className="hero-visual reveal" id="moon-live" style={{ '--reveal-delay': '120ms' }}>
-            <div className="moon-frame">
-              <video
-                className="moon-video"
-                src="/Moon%20Live%20Wallpaper_2160p.mp4"
-                autoPlay
-                loop
-                muted
-                playsInline
-                preload="auto"
-                aria-label="Live moon wallpaper"
-              />
-              <div className="moon-sheen" />
+            <div className="moon-panel">
+              <div className="moon-frame">
+                <video
+                  className="moon-video"
+                  src="/Moon%20Live%20Wallpaper_2160p.mp4"
+                  onLoadedMetadata={handleMoonVideoLoadedMetadata}
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  preload="auto"
+                  aria-label="Live moon wallpaper"
+                />
+                <div className="moon-sheen" />
+              </div>
             </div>
           </div>
         </section>
@@ -177,7 +193,7 @@ function App() {
               </div>
               <div>
                 <strong>Thrust</strong>
-                <span>4 kN - delivers strong acceleration for mission maneuvers.</span>
+                <span>400 kN - delivers strong acceleration for mission maneuvers.</span>
               </div>
               <div>
                 <strong>Propellant</strong>
