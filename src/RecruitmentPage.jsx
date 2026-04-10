@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import './RecruitmentPage.css'
 
-const GOOGLE_FORM_PLACEHOLDER_URL = 'https://forms.gle/your-iotic-recruitment-form-link'
+const GOOGLE_FORM_PLACEHOLDER_URL = 'https://forms.gle/YPwpHYb7K1RxbGF29'
 const HERO_IMAGE_CDN_URL =
     'https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?auto=format&fit=crop&w=1600&q=80'
 
