@@ -239,7 +239,7 @@ function App() {
             <div className="reveal" style={{ '--reveal-delay': '120ms' }}>
               <span>Email</span>
               <a className="contact-link" href="mailto:hello@ioticspace.com">
-                hello@ioticspace.com
+                hello@iotic.space
               </a>
             </div>
 
